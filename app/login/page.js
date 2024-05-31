@@ -11,13 +11,6 @@ export default function Login() {
       },
       body: JSON.stringify({}),
     }).then((res) => res.json());
-    // fetch("/api/user/info", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({}),
-    // }).then((res) => res.json());
   }
 
   return (

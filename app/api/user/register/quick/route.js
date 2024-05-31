@@ -12,7 +12,7 @@ export async function POST(req) {
     ["fast_start"]
   );
 
-  const token = await auth.sign({ id: insertId, name: "fast_start" });
+  const token = await auth.sign({ id: insertId });
 
   return NextResponse.json(
     { token },

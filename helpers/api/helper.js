@@ -11,3 +11,12 @@ export const handleSuccess = ({
 }) => {
   return NextResponse.json({ data, message }, { status });
 };
+
+export const authInfo = {
+  set: (request, data) => {
+    request.headers.set("auth-info", JSON.stringify(data));
+  },
+  get: (request) => {
+    return JSON.parse(request.headers.get("auth-info"));
+  },
+};

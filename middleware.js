@@ -1,24 +1,24 @@
-import { pageMiddleware } from "./helpers/page-middleware";
-import { apiMiddleware } from "./helpers/api-middleware";
+import { NextResponse } from "next/server";
+import { auth } from "./helpers/jwt";
+
+const isPublicPath = (pathname) => {
+  const publicPaths = ["/login"];
+  return publicPaths.includes(pathname);
+};
 
 export async function middleware(request) {
-  if (request.nextUrl.pathname.startsWith("/api")) {
-    // API
-    try {
-      await apiMiddleware(request);
-    } catch (errHandler) {
-      return errHandler;
-    }
+  if (isPublicPath(request.nextUrl.pathname)) {
+    return NextResponse.next();
   } else {
-    // 页面中间件
-    try {
-      await pageMiddleware(request);
-    } catch (errHandler) {
-      return errHandler;
+    const token = request.cookies.get("token")?.value;
+    const decoded = await auth.verify(token);
+    if (!decoded) {
+      return NextResponse.redirect(new URL("/login", request.url));
     }
+    return NextResponse.next();
   }
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|.*\\.png$).*)"],
+  matcher: ["/((?!api_next/static|_next/image|.*\\.png$).*)"],
 };

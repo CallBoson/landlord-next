@@ -1,5 +1,12 @@
 import db from "../../../../helpers/db.js";
+import { handler, apiMiddleware, authInfo } from "@/helpers/api";
 
-export async function POST() {
-  return Response.json({});
-}
+const getUserInfo = handler(
+  (request) => {
+    const { id } = authInfo.get(request);
+    return Response.json({});
+  },
+  [apiMiddleware]
+);
+
+export const POST = getUserInfo;
