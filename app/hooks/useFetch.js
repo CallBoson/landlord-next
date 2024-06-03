@@ -23,7 +23,7 @@ const useFetch = ({ url, json = {}, immediate = true }) => {
         }
         return response.json();
       })
-      .then((data) => {
+      .then(({ data }) => {
         setData(data);
         setIsLoading(false);
       })

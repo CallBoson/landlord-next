@@ -8,6 +8,7 @@ export function handler(fn, middlewares = []) {
 
       return await fn(request, ...args);
     } catch (error) {
+      console.log(error);
       return error;
     }
   };

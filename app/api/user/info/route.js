@@ -1,10 +1,12 @@
 import db from "../../../../helpers/db.js";
-import { handler, apiMiddleware, authInfo } from "@/helpers/api";
+import { handler, apiMiddleware, authInfo, handleSuccess } from "@/helpers/api";
 
 const getUserInfo = handler(
-  (request) => {
+  async (request) => {
     const { id } = authInfo.get(request);
-    return Response.json({});
+
+    const [[user]] = await db.query(`SELECT * FROM Users WHERE id = ?`, [id]);
+    return handleSuccess({ data: user });
   },
   [apiMiddleware]
 );

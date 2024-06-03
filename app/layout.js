@@ -14,7 +14,9 @@ export default function RootLayout({ children }) {
     <html lang="zh" className="dark">
       <body className={inter.className}>
         <Providers>
-          <div className="md:w-[768px] h-screen mx-auto">{children}</div>
+          <div className="md:w-[768px] h-screen mx-auto border border-white">
+            {children}
+          </div>
         </Providers>
       </body>
     </html>
