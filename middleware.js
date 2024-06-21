@@ -7,13 +7,14 @@ const isPublicPath = (pathname) => {
 };
 
 export async function middleware(request) {
+  return NextResponse.next();
   if (isPublicPath(request.nextUrl.pathname)) {
     return NextResponse.next();
   } else {
     const token = request.cookies.get("token")?.value;
     const decoded = await auth.verify(token);
     if (!decoded) {
-      return NextResponse.redirect(new URL("/login", request.url));
+      // return NextResponse.redirect(new URL("/login", request.url));
     }
     return NextResponse.next();
   }
